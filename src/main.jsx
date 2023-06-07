@@ -5,8 +5,8 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <div className='max-w-7xl mx-auto'>
-      <App />
-    </div>
+      <div className='max-w-7xl mx-auto'>
+        <App />
+      </div>
   </React.StrictMode>,
 )
