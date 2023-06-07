@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Fade } from "react-awesome-reveal";
 
 const Login = () => {
     const { signIn } = useContext(AuthContext)
@@ -36,7 +37,9 @@ const Login = () => {
         ;
     return (
         <div>
-            <p className='text-3xl text-center my-10'>Please Login</p>
+            <p className='text-3xl text-center my-10'>
+                <Fade delay={1e3} cascade damping={1e-1}>Please Login </Fade>
+            </p>
             {
                 err && <p className="text-2xl text-red-500">{err}</p>
             }

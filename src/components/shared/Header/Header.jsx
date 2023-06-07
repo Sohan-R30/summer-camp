@@ -2,10 +2,11 @@ import logo from "/public/logo.png"
 import userLogo from "../../../../src/assets/user.png"
 import Button from "../Button/Button";
 import { useContext, useState } from "react";
-import {Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import { Fade } from "react-awesome-reveal";
 const Header = () => {
-    const {user,logOutUser} = useContext(AuthContext);
+    const { user, logOutUser } = useContext(AuthContext);
     const handleLogOut = () => {
         logOutUser()
             .then(() => {
@@ -27,19 +28,19 @@ const Header = () => {
                     {
                         user ? (
                             <div className="flex justify-center items-center gap-3">
-                            <div onClick={() => setShowProfileName(!showProfileName)} className="avatar">
-                                <div className="w-10 rounded-full">
-                                    {
-                                        user.photoURL ? (
-                                            <img src={user?.photoURL} />
-                                        ) : (
-                                            <img src={userLogo} />
-                                        )
-                                    }
+                                <div onClick={() => setShowProfileName(!showProfileName)} className="avatar">
+                                    <div className="w-10 rounded-full">
+                                        {
+                                            user.photoURL ? (
+                                                <img src={user?.photoURL} />
+                                            ) : (
+                                                <img src={userLogo} />
+                                            )
+                                        }
+                                    </div>
                                 </div>
-                            </div>
                                 <div onClick={handleLogOut}>
-                                <Button>Log Out</Button>
+                                    <Button>Log Out</Button>
                                 </div>
                             </div>
 
@@ -51,12 +52,17 @@ const Header = () => {
                     }
                 </div>
             </div>
+           
+
+
             <div className="flex justify-center items-center gap-24 text-xl bg-[#fff7f795] py-3 ">
-            <NavLink to="/" className={({isActive}) => isActive ? 'active-link' : ''}>Home</NavLink>
-            <NavLink to="/instructors" className={({isActive}) => isActive ? 'active-link' : ''}>Instructors</NavLink>
-            <NavLink to="/classes" className={({isActive}) => isActive ? 'active-link' : ''}>Classes</NavLink>
-            <Link to="/dashboard"><p>Dashboard</p></Link>
-            {showProfileName && <p>{user.displayName}</p>}
+            <Fade cascade>
+                <NavLink to="/" className={({ isActive }) => isActive ? 'active-link' : ''}>Home</NavLink>
+                <NavLink to="/instructors" className={({ isActive }) => isActive ? 'active-link' : ''}>Instructors</NavLink>
+                <NavLink to="/classes" className={({ isActive }) => isActive ? 'active-link' : ''}>Classes</NavLink>
+                <Link to="/dashboard"><p>Dashboard</p></Link>
+                {showProfileName && <p>{user.displayName}</p>}
+            </Fade>
             </div>
         </div>
     );

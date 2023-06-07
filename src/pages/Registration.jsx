@@ -3,29 +3,33 @@ import SocialLogin from "../components/SocialLogin/SocialLogin";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext, useState } from "react";
+import { Fade } from "react-awesome-reveal";
 const Registration = () => {
     const [err, setErr] = useState("")
 
     const { createUser, updateUserProfile } = useContext(AuthContext);
 
-    const { register, handleSubmit, watch,formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         setErr("");
         console.log(data)
         createUser(data.email, data.password)
-        .then(() => {
-            navigate(-2)
-            updateUserProfile(data.name,data.photo)
-        })
-        .catch(error => {
-            setErr(error.message);
-        })
+            .then(() => {
+                navigate(-2)
+                updateUserProfile(data.name, data.photo)
+            })
+            .catch(error => {
+                setErr(error.message);
+            })
     };
     return (
         <div>
-            <p className='text-3xl text-center my-10'>Please Registration</p>
+            <p className='text-3xl text-center my-10'>
+                <Fade delay={1e3} cascade damping={1e-1}>Please Registration </Fade>
+            </p>
+
             {
                 err && <p className="text-2xl text-red-500">{err}</p>
             }
@@ -68,7 +72,7 @@ const Registration = () => {
                         autoComplete="on"
                         name="password"
                         className="border-2 py-4 px-2 mx-auto rounded-md w-full focus:outline-none"
-                        {...register("password", { required: true,pattern: /^(?=.*[A-Z])(?=.*[!@#$%^&*])(.{6,})$/},)}
+                        {...register("password", { required: true, pattern: /^(?=.*[A-Z])(?=.*[!@#$%^&*])(.{6,})$/ },)}
                     />
                     {errors.password && <span>Provide Valid Password One Capital letter, One Special Character and minimum 6 character</span>}
                 </div>
@@ -117,7 +121,7 @@ const Registration = () => {
                             placeholder="Phone Number"
                             name="phone"
                             className="border-2 py-3 px-2 mx-auto rounded-md w-full focus:outline-none"
-                            {...register("phone",{valueAsNumber: true, maxLength:11})}
+                            {...register("phone", { valueAsNumber: true, maxLength: 11 })}
                         />
                     </div>
                 </div>
