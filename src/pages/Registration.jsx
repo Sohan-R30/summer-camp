@@ -4,6 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useContext, useState } from "react";
 import { Fade } from "react-awesome-reveal";
+import axios from "axios";
+import Swal from 'sweetalert2'
+
+
+
 const Registration = () => {
     const [err, setErr] = useState("")
 
@@ -17,8 +22,33 @@ const Registration = () => {
         console.log(data)
         createUser(data.email, data.password)
             .then(() => {
-                navigate(-2)
                 updateUserProfile(data.name, data.photo)
+                    .then(() => {
+                        const storedUser = { 
+                            name: data?.name, 
+                            email: data?.email,
+                            photo: data?.photo,
+                            gender: data?.gender,
+                            phone: data?.phone,
+                            address: data?.address
+                        }
+                        axios.put(`${import.meta.env.VITE_API_URL}/users/${data?.email}`, {storedUser })
+                        .then((data) => {
+                            console.log(data);
+                            if (data?.data?.upsertedCount > 0) {
+                                Swal.fire({
+                                    position: 'top-center',
+                                    icon: 'success',
+                                    title: 'User Added Successfully',
+                                    showConfirmButton: false,
+                                    timer: 500
+                                  })
+                                  setTimeout(() => {
+                                    navigate(-2)
+                                  },500)
+                            }
+                          })
+                    })
             })
             .catch(error => {
                 setErr(error.message);
@@ -116,7 +146,7 @@ const Registration = () => {
                     <div className="relative my-5 w-full rounded-md p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
                         <label htmlFor="phone" className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Phone</label>
                         <input
-                            type="text"
+                            type="number"
                             id="phone"
                             placeholder="Phone Number"
                             name="phone"

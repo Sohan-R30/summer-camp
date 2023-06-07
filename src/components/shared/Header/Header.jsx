@@ -58,7 +58,7 @@ const Header = () => {
                 <NavLink to="/" className={({ isActive }) => isActive ? 'active-link' : ''}>Home</NavLink>
                 <NavLink to="/instructors" className={({ isActive }) => isActive ? 'active-link' : ''}>Instructors</NavLink>
                 <NavLink to="/classes" className={({ isActive }) => isActive ? 'active-link' : ''}>Classes</NavLink>
-                <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'active-link' : ''}><p>Dashboard</p></NavLink>
+                <Link to="/dashboard"><p>Dashboard</p></Link>
                 {showProfileName && <p>{user.displayName}</p>}
             </div>
         </div>
