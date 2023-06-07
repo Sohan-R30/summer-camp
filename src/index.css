@@ -4,5 +4,5 @@
 
 
 .active-link {
-    @apply hover:text-white hover:bg-blue-300 hover:px-3 hover:rounded-lg hover:animate-bounce hover:font-bold;
+    @apply text-white bg-blue-300 px-3 rounded-lg animate-bounce font-bold;
 }

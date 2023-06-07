@@ -18,19 +18,19 @@ const router = createBrowserRouter(
                     element: <Home></Home>
                 },
                 {
-                    path: "/instructors",
+                    path: "instructors",
                     element:  <p className='text-3xl text-center my-10'>THis is from Instructor</p>
                 },
                 {
-                    path: "/instructors",
-                    element:  <p className='text-3xl text-center my-10'>THis is from Classes</p>
+                    path: "classes",
+                    element:  <p className='text-3xl text-center my-10 text-black'>THis is from Classes</p>
                 },
                 {
-                    path: "/login",
+                    path: "login",
                     element: <Login></Login>
                 },
                 {
-                    path: "/registration",
+                    path: "registration",
                     element: <Registration></Registration>
                 }
             ]
