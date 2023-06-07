@@ -4,7 +4,6 @@ import Button from "../Button/Button";
 import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
-import { Fade } from "react-awesome-reveal";
 const Header = () => {
     const { user, logOutUser } = useContext(AuthContext);
     const handleLogOut = () => {
@@ -56,13 +55,11 @@ const Header = () => {
 
 
             <div className="flex justify-center items-center gap-24 text-xl bg-[#fff7f795] py-3 ">
-            <Fade cascade>
                 <NavLink to="/" className={({ isActive }) => isActive ? 'active-link' : ''}>Home</NavLink>
                 <NavLink to="/instructors" className={({ isActive }) => isActive ? 'active-link' : ''}>Instructors</NavLink>
                 <NavLink to="/classes" className={({ isActive }) => isActive ? 'active-link' : ''}>Classes</NavLink>
-                <Link to="/dashboard"><p>Dashboard</p></Link>
+                <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'active-link' : ''}><p>Dashboard</p></NavLink>
                 {showProfileName && <p>{user.displayName}</p>}
-            </Fade>
             </div>
         </div>
     );
