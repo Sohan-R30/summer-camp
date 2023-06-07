@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.active-link {
+    @apply hover:text-white hover:bg-blue-300 hover:px-3 hover:rounded-lg hover:animate-bounce hover:font-bold;
+}
