@@ -40,9 +40,6 @@ const Login = () => {
             <p className='text-3xl text-center my-10'>
                 <Fade delay={1e3} cascade damping={1e-1}>Please Login </Fade>
             </p>
-            {
-                err && <p className="text-2xl text-red-500">{err}</p>
-            }
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col justify-center gap-5"
@@ -79,6 +76,9 @@ const Login = () => {
 
                     {errors.password && <span>Password is not Correct</span>}
                 </div>
+                {
+                err && <p className="text-xl text-center text-red-500">{err}</p>
+            }
                 <input type="submit" value="Login" className="btn font-bold mx-auto w-2/4 rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#77dcf0] to-[#83e0f5d3] hover:bg-[#63c6cfd3] hover:via-[#1c637188]" />
             </form>
             <div className="divider w-2/4 mx-auto"></div>
