@@ -14,7 +14,6 @@ const ManageUsers = () => {
             const res = await axiosSecure(`/users`);
             return res?.data;
         },
-
     })
 
 

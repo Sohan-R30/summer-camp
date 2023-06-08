@@ -31,6 +31,7 @@ const Addclasses = () => {
             ...data,
             status: "pending",
         }
+        console.log(storedClass)
         axiosSecure.post("/classes/add", {storedClass})
             .then(data => {
                 console.log(data)
@@ -131,7 +132,7 @@ const Addclasses = () => {
                 <div className="relative w-2/4  mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
                     <label htmlFor="availableSeats" className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Available Seats</label>
                     <input
-                        type="number"
+                        type="text"
                         id="availableSeats"
                         placeholder="Available Seats"
                         name="availableSeats"

@@ -34,7 +34,7 @@ const SingleClass = ({handleSelect,singleClass}) => {
                     <p><span className="font-semibold text-gray-400">Total Enrolled Students</span> : <span>34</span></p>
                 </div>
             </div>
-            <div style={backgrounStyle} onMouseLeave={() => setIsFlipped(!isFlipped)} className="border-2 w-80 py-32 flex flex-col justify-center items-center shadow-xl rounded-lg ">
+            <div style={backgrounStyle} onMouseOut={() => setIsFlipped(!isFlipped)} className="border-2 w-80 py-32 flex flex-col justify-center items-center shadow-xl rounded-lg ">
                 <div className="text-center my-4">
                     <p className="font-bold text-xl">Feedback.....</p>
                     <p className="">
@@ -43,7 +43,7 @@ const SingleClass = ({handleSelect,singleClass}) => {
                         Harum dolorum impedit, earum quia a accusantium culpa
                     </p>
                 </div>
-                <button onClick={handleSelect} className="border px-8 py-2 bg-[#e29417] hover:bg-[#9ab751f2] rounded-lg border-none">Select Class</button>
+                <button  onClick={handleSelect} className="border px-8 py-2 bg-[#e29417] hover:bg-[#9ab751f2] rounded-lg border-none">Select Class</button>
             </div>
         </CardFlip>
             
