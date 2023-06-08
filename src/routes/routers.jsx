@@ -10,6 +10,9 @@ import PrivateRoute from "./PrivateRoute";
 import Error from "../pages/Error";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import ManageClasses from "../pages/Dashboard/Admin/ManageClasses";
+import AdminRoute from "./AdminRoute";
+import MyselectedClasses from "../pages/Dashboard/Admin/Student/MyselectedClasses";
+import MyenrolledClasses from "../pages/Dashboard/Admin/Student/MyenrolledClasses";
 
 const router = createBrowserRouter(
     [
@@ -46,12 +49,20 @@ const router = createBrowserRouter(
             errorElement: <Error></Error>,
             children: [
                 {
-                    path: "/dashboard",
-                    element: <ManageUsers></ManageUsers>
+                    path: "manage-users",
+                    element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
                 },
                 {
                     path: "manage-classes",
-                    element: <ManageClasses></ManageClasses>
+                    element: <AdminRoute><ManageClasses></ManageClasses></AdminRoute>
+                },
+                {
+                    path: "myenrolled-classes",
+                    element:<MyenrolledClasses></MyenrolledClasses>
+                },
+                {
+                    path: "myselected-classes",
+                    element:<MyselectedClasses></MyselectedClasses>
                 }
             ]
         }

@@ -22,7 +22,7 @@ const ManageUsers = () => {
         <div className="overflow-x-auto">
             <table className="table bg-primaryColor">
                 <thead>
-                    <tr className="text-lg text-center divide-y divide-y-reverse divide-x divide-x-reverse divide-slate-300">
+                    <tr className="text-lg text-center divide-y divide-y-reverse divide-x divide-x-reverse divide-slate-300 bg-gray-400 text-white">
                         <th>Serial No</th>
                         <th>Photo</th>
                         <th>Name</th>

@@ -1,9 +1,12 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import Footer from "../../components/shared/Footer/Footer";
 import Header from "../../components/shared/Header/Header";
+import useAdmin from "../../hooks/useAdmin";
 
 
 const Dashboard = () => {
+    const location = useLocation();
+    const [isAdmin] = useAdmin();
     return (
         <div>
             <Header></Header>
@@ -11,23 +14,78 @@ const Dashboard = () => {
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
                     <label htmlFor="my-drawer-2" className="btn bg-[#40b8f8] drawer-button lg:hidden drawer-end my-10">Open drawer</label>
-                   <div className="m-10">
-                   <Outlet></Outlet>
-                   </div>
+                    <div className="m-10">
+                        <Outlet></Outlet>
+                    </div>
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu py-10 px-5 bg-primaryColor text-base-content font-bold text-xl flex  min-h-screen gap-5">
-                        <NavLink to="/dashboard/manage-classes" 
-                        className={({ isActive }) => isActive ? 'active-link' : ''}
-                            >Manage Classes
+                    {
+                        isAdmin ? (
+                            <ul className="menu py-10 px-5 bg-primaryColor text-base-content font-bold text-xl flex  min-h-screen gap-5">
+                                <NavLink to="/dashboard/manage-classes"
+                                    className={({ isActive }) => isActive ? 'active-link' : ''}
+                                >Manage Classes
+                                </NavLink>
+                                <NavLink
+                                    to="/dashboard/manage-users"
+                                    className={({ isActive }) => isActive ? 'active-link' : ''}
+                                >Manage Users
+                                </NavLink>
+                                {/* {
+                                    location.pathname === "/dashboard/manage-classes" ? (
+                                        <Link to="/dashboard">Manage Users</Link>
+                                    ) : (
+                                        <NavLink
+                                            to="/dashboard"
+                                            className={({ isActive }) => isActive ? 'active-link' : ''}
+                                        >Manage Users
+                                        </NavLink>
+                                    )
+                                } */}
+                            </ul>
+                        ) : (
+                            <ul className="menu py-10 px-5 bg-primaryColor text-base-content font-bold text-xl flex  min-h-screen gap-5">
+                                <NavLink to="/dashboard/myselected-classes"
+                                    className={({ isActive }) => isActive ? 'active-link' : ''}
+                                >My Selected Classes
+                                </NavLink>
+                                <NavLink
+                                    to="/dashboard/myenrolled-classes"
+                                    className={({ isActive }) => isActive ? 'active-link' : ''}
+                                >My Enrolled Classes
+                                </NavLink>
+                                {/* {
+                                    location.pathname === "/dashboard/myselected-classes" ? (
+                                        <Link to="/dashboard/">My Enrolled Classes</Link>
+                                    ) : (
+                                        <NavLink
+                                            to="/dashboard"
+                                            className={({ isActive }) => isActive ? 'active-link' : ''}
+                                        >My Enrolled Classes
+                                        </NavLink>
+                                    )
+                                } */}
+                            </ul>
+                        )
+                    }
+                    {/* <ul className="menu py-10 px-5 bg-primaryColor text-base-content font-bold text-xl flex  min-h-screen gap-5">
+                        <NavLink to="/dashboard/manage-classes"
+                            className={({ isActive }) => isActive ? 'active-link' : ''}
+                        >Manage Classes
                         </NavLink>
-                        <NavLink 
-                        to="/dashboard"
-                        className={({ isActive }) => isActive ? 'active-link' : ''}
-                            >Manage Users
-                        </NavLink>
-                    </ul>
+                        {
+                            location.pathname === "/dashboard/manage-classes" ? (
+                                <Link to="/dashboard">Manage Users</Link>
+                            ) : (
+                                <NavLink
+                                    to="/dashboard"
+                                    className={({ isActive }) => isActive ? 'active-link' : ''}
+                                >Manage Users
+                                </NavLink>
+                            )
+                        }
+                    </ul> */}
                 </div>
             </div>
             <Footer></Footer>

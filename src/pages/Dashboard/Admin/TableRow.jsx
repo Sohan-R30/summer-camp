@@ -67,8 +67,8 @@ const TableRow = ({ user, refetch, index }) => {
             <th>
                 <button
                  onClick={() => handleMakeInstructor(_id)} 
-                 disabled={disableInstructor}
-                 className={`${disableInstructor ? "bg-gray-400 " : "bg-[#83e0f5] font-bold   hover:bg-[#7f9a9f] hover:text-white "}  py-2 px-3 rounded-lg` }
+                 disabled={disableInstructor || role === "instructor"}
+                 className={`${role === "instructor" ||disableInstructor ? "bg-gray-400 " : "bg-[#83e0f5] font-bold   hover:bg-[#7f9a9f] hover:text-white "}  py-2 px-3 rounded-lg` }
                  >Make Instructor</button>
             </th>
             <th>
