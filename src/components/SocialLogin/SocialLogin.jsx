@@ -3,6 +3,7 @@ import { useContext } from "react";
 import googleLogo from "../../assets/gogle-logo.svg"
 import { AuthContext } from "../../Providers/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SocialLogin = ({children}) => {
     const {googleSignIn} = useContext(AuthContext);
@@ -11,8 +12,18 @@ const SocialLogin = ({children}) => {
     const from = location?.state?.from?.pathname || "/"
     const handleGoogleSingIn = () => {
         googleSignIn()
-            .then(() => {
-                navigate(from, {replace: true})
+            .then((data) => {
+                console.log("-----",data.user);
+                const storedUser = { 
+                    name: data?.user?.displayName, 
+                    email: data?.user?.email,
+                    photo: data?.user?.photoURL,
+                }
+                axios.put(`${import.meta.env.VITE_API_URL}/users/${data?.user?.email}`, {storedUser })
+                .then((data) => {
+                    console.log(data);
+                    navigate(from, {replace: true})
+                  })
             })
             .catch(error => {
                 console.log(error.message)

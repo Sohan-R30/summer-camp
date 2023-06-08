@@ -19,10 +19,12 @@ const Header = () => {
     return (
         <div className="">
             <div className="bg-primaryColor text-black px-10 py-2 flex justify-between items-center">
+                <Link to="/">
                 <div className="flex items-center gap-4">
                     <img className="w-10" src={logo} alt="logo" />
                     <h3 className="text-2xl font-bold">Summer Camp</h3>
                 </div>
+                </Link>
                 <div>
                     {
                         user ? (
