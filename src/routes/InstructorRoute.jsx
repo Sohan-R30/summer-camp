@@ -4,7 +4,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import useInstructor from "../hooks/useInstructor";
 
 
-const AdminRoute = ({ children }) => {
+const InstructorRoute = ({ children }) => {
     const { user, userLoading } = useContext(AuthContext)
     const [isInstructor, isInstructorLoading] = useInstructor();
     const location = useLocation();
@@ -21,4 +21,4 @@ const AdminRoute = ({ children }) => {
 };
 
 
-export default AdminRoute;
+export default InstructorRoute;

@@ -11,8 +11,9 @@ import Error from "../pages/Error";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import ManageClasses from "../pages/Dashboard/Admin/ManageClasses";
 import AdminRoute from "./AdminRoute";
-import MyselectedClasses from "../pages/Dashboard/Admin/Student/MyselectedClasses";
-import MyenrolledClasses from "../pages/Dashboard/Admin/Student/MyenrolledClasses";
+import MyselectedClasses from "../pages/Dashboard/Student/MyselectedClasses";
+import MyenrolledClasses from "../pages/Dashboard/Student/MyenrolledClasses";
+import InstructorRoute from "./InstructorRoute";
 
 const router = createBrowserRouter(
     [
@@ -63,6 +64,14 @@ const router = createBrowserRouter(
                 {
                     path: "myselected-classes",
                     element:<MyselectedClasses></MyselectedClasses>
+                },
+                {
+                    path: "add-classes",
+                    element:<InstructorRoute><MyenrolledClasses></MyenrolledClasses></InstructorRoute>
+                },
+                {
+                    path: "my-classes",
+                    element:<InstructorRoute><MyselectedClasses></MyselectedClasses></InstructorRoute>
                 }
             ]
         }

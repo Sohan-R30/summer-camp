@@ -2,7 +2,7 @@
 const MyenrolledClasses = () => {
     return (
         <div>
-            
+            asdafsasfasaf
         </div>
     );
 };

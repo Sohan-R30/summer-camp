@@ -12,7 +12,7 @@ const useInstructor = () => {
         enabled: !userLoading,
         queryFn: async () => {
             const res = await axiosSecure(`/users/instructor/${user?.email}`);
-            return res.data.admin;
+            return res.data.instructor;
         }
     })
     return [isInstructor, isInstructorLoading]
