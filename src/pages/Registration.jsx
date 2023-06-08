@@ -56,9 +56,9 @@ const Registration = () => {
     };
     return (
         <div>
-            <p className='text-3xl text-center my-10'>
+            <div className='text-3xl text-center my-10'>
                 <Fade delay={1e3} cascade damping={1e-1}>Please Registration </Fade>
-            </p>
+            </div>
 
             {
                 err && <p className="text-2xl text-red-500">{err}</p>

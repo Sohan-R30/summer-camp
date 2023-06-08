@@ -37,9 +37,9 @@ const Login = () => {
         ;
     return (
         <div>
-            <p className='text-3xl text-center my-10'>
+            <div className='text-3xl text-center my-10'>
                 <Fade delay={1e3} cascade damping={1e-1}>Please Login </Fade>
-            </p>
+            </div>
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col justify-center gap-5"
