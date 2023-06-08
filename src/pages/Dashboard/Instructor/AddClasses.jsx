@@ -2,16 +2,19 @@ import { useContext, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 const Addclasses = () => {
     const [err, setErr] = useState("")
 
     const {user} = useContext(AuthContext);
+    const [axiosSecure] = useAxiosSecure();
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const onSubmit =(data) => {
+    const onSubmit =  (data) => {
         setErr("");
         // console.log(data, data?.classPhoto)
         // const formData = new FormData();
@@ -24,6 +27,27 @@ const Addclasses = () => {
         // .then(imgResponse => {
         //     console.log("🚀 ~ file: Addclasses.jsx:28 ~ onSubmit ~ imgURL:", imgResponse)
         // })
+        const storedClass = {
+            ...data,
+            status: "pending",
+        }
+        axiosSecure.post("/classes/add", {storedClass})
+            .then(data => {
+                console.log(data)
+                if(data.data.insertedId || data.status=== 200){
+                    reset();
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: 'Class Added Successfully',
+                        showConfirmButton: false,
+                        timer: 500
+                      })
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
 
     };
     return (
