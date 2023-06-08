@@ -17,7 +17,7 @@ const Registration = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate();
 
-    const onSubmit = async (data) => {
+    const onSubmit = (data) => {
         setErr("");
         console.log(data)
         createUser(data.email, data.password)

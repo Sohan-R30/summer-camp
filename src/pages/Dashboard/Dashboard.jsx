@@ -7,9 +7,7 @@ import useInstructor from "../../hooks/useInstructor";
 
 const Dashboard = () => {
     const [isAdmin] = useAdmin();
-    console.log("🚀 ~ file: Dashboard.jsx:10 ~ Dashboard ~ isAdmin:", isAdmin)
     const [isInstructor] = useInstructor();
-    console.log("🚀 ~ file: Dashboard.jsx:12 ~ Dashboard ~ isInstructor:", isInstructor)
     return (
         <div>
             <Header></Header>
@@ -26,8 +24,8 @@ const Dashboard = () => {
                     <div>
                         <>
                             {
-                                isAdmin ? ( 
-                                        <ul className="menu py-10 px-5 bg-primaryColor text-base-content font-bold text-xl flex  min-h-screen gap-5">
+                                isAdmin ? (
+                                    <ul className="menu py-10 px-5 bg-primaryColor text-base-content font-bold text-xl flex  min-h-screen gap-5">
                                         <NavLink to="/dashboard/manage-classes"
                                             className={({ isActive }) => isActive ? 'active-link' : ''}
                                         >Manage Classes
@@ -38,20 +36,20 @@ const Dashboard = () => {
                                         >Manage Users
                                         </NavLink>
                                     </ul>
-                                ) : isInstructor ?  (
+                                ) : isInstructor ? (
                                     <ul className="menu py-10 px-5 bg-primaryColor text-base-content font-bold text-xl flex  min-h-screen gap-5">
-                                        <NavLink to="/dashboard/myselected-classes"
+                                        <NavLink to="/dashboard/myadded-classes"
                                             className={({ isActive }) => isActive ? 'active-link' : ''}
                                         >Add a Class
                                         </NavLink>
                                         <NavLink
-                                            to="/dashboard/myenrolled-classes"
+                                            to="/dashboard/my-classes"
                                             className={({ isActive }) => isActive ? 'active-link' : ''}
                                         >My Classes
                                         </NavLink>
-                                        
+
                                     </ul>
-                                ) : isAdmin || isInstructor ? (
+                                ) : (
                                     <ul className="menu py-10 px-5 bg-primaryColor text-base-content font-bold text-xl flex  min-h-screen gap-5">
                                         <NavLink to="/dashboard/myselected-classes"
                                             className={({ isActive }) => isActive ? 'active-link' : ''}
@@ -62,10 +60,11 @@ const Dashboard = () => {
                                             className={({ isActive }) => isActive ? 'active-link' : ''}
                                         >My Enrolled Classes
                                         </NavLink>
-                                        
+
                                     </ul>
-                                ) : (<p>loading....</p>)  
+                                )
                             }
+                            
                         </>
                     </div>
                 </div>
