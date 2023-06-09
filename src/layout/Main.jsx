@@ -7,7 +7,7 @@ const Main = () => {
     return (
         <>
             <Header></Header>
-            <div className=" min-h-screen">
+            <div className=" min-h-[60vh]">
                 <Outlet></Outlet>
             </div>
             <Footer></Footer>

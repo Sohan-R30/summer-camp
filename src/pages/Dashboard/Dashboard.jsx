@@ -60,6 +60,11 @@ const Dashboard = () => {
                                             className={({ isActive }) => isActive ? 'active-link' : ''}
                                         >My Enrolled Classes
                                         </NavLink>
+                                        <NavLink
+                                            to="/dashboard/payment-history"
+                                            className={({ isActive }) => isActive ? 'active-link' : ''}
+                                        >My Payment History
+                                        </NavLink>
 
                                     </ul>
                                 )

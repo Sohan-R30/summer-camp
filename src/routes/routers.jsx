@@ -18,6 +18,9 @@ import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import Addclasses from "../pages/Dashboard/Instructor/Addclasses";
 import MyClasses from "../pages/Dashboard/Instructor/MyClasses";
 import AllClasses from "../pages/AllClasses/AllClasses";
+import PaymentPage from "../pages/PaymentForm/PaymentPage";
+import PaymentHistory from "../pages/PaymentForm/PaymentHistory";
+import AllInstructor from "../pages/AllInstructor/AllInstructor";
 
 const router = createBrowserRouter(
     [
@@ -32,7 +35,7 @@ const router = createBrowserRouter(
                 },
                 {
                     path: "/instructors",
-                    element: <p className='text-3xl text-center my-10'>THis is from Instructor</p>
+                    element: <AllInstructor></AllInstructor>
                 },
                 {
                     path: "/classes",
@@ -81,6 +84,14 @@ const router = createBrowserRouter(
                     path: "my-classes",
                     element:<InstructorRoute><MyClasses/></InstructorRoute>
                 },
+                {
+                    path:"payment-stripe/:id",
+                    element:<PaymentPage></PaymentPage>
+                },
+                {
+                    path:"payment-history",
+                    element: <PaymentHistory></PaymentHistory>
+                }
             ]
         }
 

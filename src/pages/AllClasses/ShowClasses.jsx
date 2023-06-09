@@ -27,6 +27,7 @@ const ShowClasses = ({ singleClass }) => {
     const handleSelect = (id) => {
         if(!(user === null)) {
             const selectedClass = {
+                selectedEmail: user?.email,
                 enrolled: false,
                 selected: true,
             }
@@ -64,7 +65,6 @@ const ShowClasses = ({ singleClass }) => {
                 <div className="card-body bg-[#7dadad26]">
                     <div className="flex items-center">
                         <h2 className="card-title">{className}</h2>
-
                     </div>
                     <p><span className="font-semibold text-gray-400">Instructor</span> : <span>{instructorName}</span></p>
                     <p><span className="font-semibold text-gray-400">Available Seats</span> : <span>{availableSeats}</span></p>
