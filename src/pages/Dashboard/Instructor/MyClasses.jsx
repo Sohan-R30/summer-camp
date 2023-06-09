@@ -2,14 +2,15 @@ import SingleClass from "./SingleClass";
 import useClasses from "../../../hooks/useClasses";
 
 const MyClasses = () => {
-    const [classes,] = useClasses();
+    const [classes,refetch] = useClasses();
     return (
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10">
+        <div className="flex gap-5 flex-wrap">
              {
             classes.map(singleClass => <SingleClass
             singleClass={singleClass}
-            key={classes?._id}
+            refetch={refetch}
+            key={singleClass?._id}
             ></SingleClass>)
         }
     

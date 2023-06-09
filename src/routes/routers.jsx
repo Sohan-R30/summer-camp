@@ -17,6 +17,7 @@ import InstructorRoute from "./InstructorRoute";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import Addclasses from "../pages/Dashboard/Instructor/Addclasses";
 import MyClasses from "../pages/Dashboard/Instructor/MyClasses";
+import AllClasses from "../pages/AllClasses/AllClasses";
 
 const router = createBrowserRouter(
     [
@@ -35,7 +36,11 @@ const router = createBrowserRouter(
                 },
                 {
                     path: "/classes",
-                    element: <p className='text-3xl text-center my-10 text-black'>THis is from Classes</p>
+                    element: <AllClasses></AllClasses>
+                },
+                {
+                    path: "select-classes",
+                    element: <PrivateRoute><p>my selected</p></PrivateRoute>
                 },
                 {
                     path: "/login",
@@ -79,7 +84,7 @@ const router = createBrowserRouter(
                 {
                     path: "my-classes",
                     element:<InstructorRoute><MyClasses/></InstructorRoute>
-                }
+                },
             ]
         }
 
