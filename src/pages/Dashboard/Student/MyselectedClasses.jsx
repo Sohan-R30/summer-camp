@@ -3,7 +3,7 @@
 const MyselectedClasses = () => {
     return (
         <div>
-            dssdkfalfda
+           <p>My Select Classes</p>
         </div>
     );
 };

@@ -1,19 +1,55 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import CardFlip from 'react-card-flip';
 import cardbg from "../../assets/ShinyOverlay.svg"
-import { Link } from 'react-router-dom';
 import useAdmin from '../../hooks/useAdmin';
 import useInstructor from '../../hooks/useInstructor';
+import { AuthContext } from '../../Providers/AuthProvider';
+import Swal from 'sweetalert2'
+import { useLocation, useNavigate } from 'react-router-dom';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+
+
 const ShowClasses = ({ singleClass }) => {
+    console.log("🚀 ~ file: showClasses.jsx:13 ~ ShowClasses ~ singleClass:", singleClass)
     const [isFlipped, setIsFlipped] = useState(false);
     const { availableSeats, className, classPhoto, instructorName } = singleClass.storedClass || {}
+
+    const {user} = useContext(AuthContext);
     const [isAdmin] = useAdmin();
     const [isInstructor] = useInstructor();
+    const navigate = useNavigate();
+    const [axiosSecure] = useAxiosSecure();
+    const location = useLocation();
+
     const backgrounStyle = {
         backgroundImage: `url(${cardbg})`,
     };
     const handleSelect = (id) => {
-        console.log("🚀 ~ file: showClasses.jsx:13 ~ handleSelect ~ id:", id)
+        if(!(user === null)) {
+            const selectedClass = {
+                enrolled: false,
+                selected: true,
+            }
+            axiosSecure.patch(`/classes/selectOrEnroll/${id}`,{selectedClass})
+                .then(data => {
+                    if(data?.data?.modifiedCount){
+                        Swal.fire({
+                            position: 'top-center',
+                            icon: 'success',
+                            title: 'Class Selected Successfully',
+                            showConfirmButton: false,
+                            timer: 500
+                          })
+                          setTimeout(() => {
+                            navigate("/dashboard/myselected-classes")
+                          },500)
+                    }
+                })
+                .catch(error => console.log(error))
+        }
+        else{
+            navigate("/login", {from : location})
+        }
     }
     return (
         <div className={`${availableSeats === 0 ? "bg-red-500" : ""} rounded-2xl`}>
@@ -37,13 +73,11 @@ const ShowClasses = ({ singleClass }) => {
             </div>
             <div style={backgrounStyle} onMouseLeave={() => setIsFlipped(!isFlipped)} className="border-2 w-80 py-32 flex flex-col justify-center items-center shadow-xl rounded-lg ">
                 <div className="text-center my-4">
-                    <Link to="/select-classes">
                     <button
                         onClick={() => handleSelect(singleClass._id)}
-                        disabled={isAdmin || isInstructor}
-                        className={`${isAdmin || isInstructor ? "bg-gray-400 " : "bg-[#83e0f5] font-bold   hover:bg-[#7f9a9f] hover:text-white "}  py-2 px-3 rounded-lg`}
+                        disabled={isAdmin || isInstructor || singleClass.enrolled || singleClass.selected}
+                        className={`${isAdmin || isInstructor || user === null || singleClass.enrolled || singleClass.selected ? "bg-gray-400 " : "bg-[#83e0f5] font-bold   hover:bg-[#7f9a9f] hover:text-white "}  py-2 px-3 rounded-lg`}
                     >Select Class</button>
-                    </Link>
                 </div>
             </div>
         </CardFlip>

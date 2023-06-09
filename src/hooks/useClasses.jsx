@@ -22,10 +22,8 @@ export default useClasses;
 
 
 export const useAllClasses = () => {
-    const { user, userLoading } = useContext(AuthContext);
     const { data: allClasses = [], refetch } = useQuery({
-        queryKey: ['classes', user?.email],
-        enabled: !userLoading,
+        queryKey: ['classes'],
         queryFn: async () => {
             const res = await axios(`${import.meta.env.VITE_API_URL}/allClasses`)
             return res.data;
