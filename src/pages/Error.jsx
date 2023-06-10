@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import errImg from "../../src/assets/404.gif"
 import Button from "../components/shared/Button/Button";
+
 const Error = () => {
     
     return (

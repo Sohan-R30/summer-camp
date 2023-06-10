@@ -6,15 +6,19 @@ import useInstructor from "../../hooks/useInstructor";
 
 
 const Dashboard = () => {
+
     const [isAdmin] = useAdmin();
     const [isInstructor] = useInstructor();
+
     return (
         <div>
             <Header></Header>
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content min-h-screen">
-                    <label htmlFor="my-drawer-2" className="btn bg-[#40b8f8] drawer-button lg:hidden drawer-end my-10">Open drawer</label>
+                    <label 
+                    htmlFor="my-drawer-2" 
+                    className="btn bg-[#40b8f8] drawer-button lg:hidden drawer-end my-10">Open drawer</label>
                     <div className="m-10 ">
                         <Outlet></Outlet>
                     </div>
@@ -69,7 +73,6 @@ const Dashboard = () => {
                                     </ul>
                                 )
                             }
-                            
                         </>
                     </div>
                 </div>

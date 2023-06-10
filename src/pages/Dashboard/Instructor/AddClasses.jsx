@@ -7,14 +7,15 @@ import Swal from "sweetalert2";
 
 
 const Addclasses = () => {
+
     const [err, setErr] = useState("")
 
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [axiosSecure] = useAxiosSecure();
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const onSubmit =  (data) => {
+    const onSubmit = (data) => {
         setErr("");
         // console.log(data, data?.classPhoto)
         // const formData = new FormData();
@@ -32,11 +33,9 @@ const Addclasses = () => {
             status: "pending",
             totalEnrolledStudent: 0,
         }
-        console.log(storedClass)
-        axiosSecure.post("/classes/add", {storedClass})
+        axiosSecure.post("/classes/add", { storedClass })
             .then(data => {
-                console.log(data)
-                if(data.data.insertedId || data.status=== 200){
+                if (data.data.insertedId || data.status === 200) {
                     reset();
                     Swal.fire({
                         position: 'top-center',
@@ -44,13 +43,9 @@ const Addclasses = () => {
                         title: 'Class Added Successfully',
                         showConfirmButton: false,
                         timer: 500
-                      })
+                    })
                 }
             })
-            .catch(error => {
-                console.log(error);
-            })
-
     };
     return (
         <div>
@@ -64,10 +59,11 @@ const Addclasses = () => {
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col justify-center gap-5"
-                // encType="multipart/form-data"
             >
                 <div className="relative w-2/4  mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label htmlFor="className" className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Class name</label>
+                    <label 
+                    htmlFor="className" 
+                    className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Class name</label>
                     <input
                         type="text"
                         id="className"
@@ -92,7 +88,9 @@ const Addclasses = () => {
                     {errors.classPhoto && <span>Please Upload A Photo</span>}
                 </div> */}
                 <div className="relative my-5 w-2/4 mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label htmlFor="classPhoto" className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Class Photo Url</label>
+                    <label 
+                    htmlFor="classPhoto" 
+                    className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Class Photo Url</label>
                     <input
                         type="url"
                         id="classPhoto"
@@ -105,7 +103,9 @@ const Addclasses = () => {
                 </div>
 
                 <div className="relative w-2/4  mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label htmlFor="instructorName" className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Instructor name</label>
+                    <label 
+                    htmlFor="instructorName" 
+                    className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Instructor name</label>
                     <input
                         type="text"
                         id="instructorName"
@@ -118,7 +118,9 @@ const Addclasses = () => {
                 </div>
 
                 <div className="relative w-2/4  mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label htmlFor="instructorEmail" className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Instructor Email</label>
+                    <label 
+                    htmlFor="instructorEmail" 
+                    className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Instructor Email</label>
                     <input
                         type="email"
                         id="instructorEmail"
@@ -131,7 +133,9 @@ const Addclasses = () => {
                 </div>
 
                 <div className="relative w-2/4  mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label htmlFor="availableSeats" className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Available Seats</label>
+                    <label 
+                    htmlFor="availableSeats" 
+                    className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Available Seats</label>
                     <input
                         type="text"
                         id="availableSeats"
@@ -140,10 +144,12 @@ const Addclasses = () => {
                         className="border-2 py-3 px-2 mx-auto rounded-md w-full focus:outline-none"
                         {...register("availableSeats", { valueAsNumber: true })}
                     />
-                     {errors.availableSeats && <span>Give Your Class Name</span>}
+                    {errors.availableSeats && <span>Give Your Class Name</span>}
                 </div>
                 <div className="relative w-2/4  mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label htmlFor="price" className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Price</label>
+                    <label 
+                    htmlFor="price" 
+                    className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Price</label>
                     <input
                         type="number"
                         id="price"
@@ -152,11 +158,13 @@ const Addclasses = () => {
                         className="border-2 py-3 px-2 mx-auto rounded-md w-full focus:outline-none"
                         {...register("price", { valueAsNumber: true })}
                     />
-                     {errors.price && <span>Give Your Class Name</span>}
+                    {errors.price && <span>Give Your Class Name</span>}
                 </div>
-
-
-                <input type="submit" value="Add A Class" className="btn font-bold mx-auto w-2/4 rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#77dcf0] to-[#83e0f5d3] hover:bg-[#63c6cfd3] hover:via-[#1c637188]" />
+                <input 
+                type="submit" 
+                value="Add A Class" 
+                className="btn font-bold mx-auto w-2/4 rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#77dcf0] to-[#83e0f5d3] hover:bg-[#63c6cfd3] hover:via-[#1c637188]" 
+                />
             </form>
         </div>
     );

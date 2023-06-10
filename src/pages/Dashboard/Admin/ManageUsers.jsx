@@ -40,7 +40,7 @@ const ManageUsers = () => {
                         ) : (
                             <>
                                 {
-                                    users && users?.map((user,index) => <TableRow
+                                    users && users?.map((user, index) => <TableRow
                                         index={index}
                                         refetch={refetch}
                                         user={user}

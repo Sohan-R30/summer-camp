@@ -11,7 +11,7 @@ const auth = getAuth(app)
 
 const googleProvider = new GoogleAuthProvider();
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [userLoading, setUserLoading] = useState(true);
 
@@ -19,14 +19,14 @@ const AuthProvider = ({children}) => {
         setUserLoading(false)
         return createUserWithEmailAndPassword(auth, email, password)
     }
-    const signIn = (email,password) => {
+    const signIn = (email, password) => {
         setUserLoading(false)
-        return signInWithEmailAndPassword(auth,email,password)
+        return signInWithEmailAndPassword(auth, email, password)
     }
 
     const googleSignIn = () => {
         setUserLoading(false)
-        return signInWithPopup(auth,googleProvider)
+        return signInWithPopup(auth, googleProvider)
     }
 
     const logOutUser = () => {
@@ -36,29 +36,29 @@ const AuthProvider = ({children}) => {
 
     const updateUserProfile = (name, photo) => {
         return updateProfile(auth.currentUser, {
-          displayName: name,
-          photoURL: photo,
+            displayName: name,
+            photoURL: photo,
         })
-      }
+    }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
-            if(currentUser){
-                axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {email: currentUser.email})
-                .then(data =>{
-                    localStorage.setItem('access-token', data.data.token)
-                    setUserLoading(false);
-                    console.log(data.data)
-                })
+            if (currentUser) {
+                axios.post(`${import.meta.env.VITE_API_URL}/jwt`, { email: currentUser.email })
+                    .then(data => {
+                        setUserLoading(false);
+                        localStorage.setItem('access-token', data.data.token)
+                    })
             }
-            else{
+            else {
                 localStorage.removeItem('access-token')
+                setUserLoading(false);
             }
-        }) 
+        })
         return () => unsubscribe();
 
-    },[])
+    }, [])
 
     const authInfo = {
         user,

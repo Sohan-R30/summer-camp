@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Fade } from "react-awesome-reveal";
 
 const Login = () => {
+
     const { signIn } = useContext(AuthContext)
     const [err, setErr] = useState("")
     const [showPassword, setShowPassword] = useState(false);
@@ -20,7 +21,6 @@ const Login = () => {
 
 
     const onSubmit = data => {
-        console.log(data);
         signIn(data.email, data.password)
             .then(() => {
                 reset();
@@ -31,10 +31,9 @@ const Login = () => {
             .catch(error => {
                 setErr(error.message);
             })
-    }
+    };
 
 
-        ;
     return (
         <div>
             <div className='text-3xl text-center my-10'>
@@ -45,7 +44,9 @@ const Login = () => {
                 className="flex flex-col justify-center gap-5"
             >
                 <div className="relative w-2/4  mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label htmlFor="email" className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Email</label>
+                    <label 
+                    htmlFor="email" 
+                    className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Email</label>
                     <input
                         type="email"
                         id="email"
@@ -58,7 +59,9 @@ const Login = () => {
                 </div>
 
                 <div className="relative my-5 w-2/4 mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label htmlFor="password" className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Password</label>
+                    <label 
+                    htmlFor="password" 
+                    className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Password</label>
                     <input
                         type={`${showPassword ? "text" : "password"}`}
                         id="password"
@@ -79,14 +82,18 @@ const Login = () => {
                 {
                 err && <p className="text-xl text-center text-red-500">{err}</p>
             }
-                <input type="submit" value="Login" className="btn font-bold mx-auto w-2/4 rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#77dcf0] to-[#83e0f5d3] hover:bg-[#63c6cfd3] hover:via-[#1c637188]" />
+                <input 
+                type="submit" 
+                value="Login" 
+                className="btn font-bold mx-auto w-2/4 rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#77dcf0] to-[#83e0f5d3] hover:bg-[#63c6cfd3] hover:via-[#1c637188]" />
             </form>
             <div className="divider w-2/4 mx-auto"></div>
             <div className="w-2/4 mx-auto text-center  flex items-center ">
                 <SocialLogin>Login With Google</SocialLogin>
             </div>
             <div className="w-2/4 mx-auto py-2">
-                <p>New to Summer Camp? <Link to="/registration" className="text-[#14b0d3]">Please Sign Up</Link></p>
+                <p>New to Summer Camp? <Link 
+                to="/registration" className="text-[#14b0d3]">Please Sign Up</Link></p>
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import logo from "/public/logo.png"
+import logo from "../../../assets/logo.png"
 import userLogo from "../../../../src/assets/user.png"
 import Button from "../Button/Button";
 import { useContext, useState } from "react";
@@ -10,26 +10,24 @@ const Header = () => {
         logOutUser()
             .then(() => {
             })
-            .catch(error => {
-                console.log(error)
-            })
     }
-    console.log(user)
     const [showProfileName, setShowProfileName] = useState(false)
     return (
         <div className="">
             <div className="bg-primaryColor text-black px-10 py-2 flex justify-between items-center">
                 <Link to="/">
-                <div className="flex items-center gap-4">
-                    <img referrerPolicy = "no-referrer" className="w-10" src={logo} alt="logo" />
-                    <h3 className="text-2xl font-bold">Summer Camp</h3>
-                </div>
+                    <div className="flex items-center gap-4">
+                        <img referrerPolicy="no-referrer" className="w-10" src={logo} alt="logo" />
+                        <h3 className="text-2xl font-bold">Summer Camp</h3>
+                    </div>
                 </Link>
                 <div>
                     {
                         user ? (
                             <div className="flex justify-center items-center gap-3">
-                                <div onClick={() => setShowProfileName(!showProfileName)} className="avatar">
+                                <div 
+                                    onClick={() => setShowProfileName(!showProfileName)} 
+                                    className="avatar">
                                     <div className="w-10 rounded-full">
                                         {
                                             user.photoURL ? (
@@ -53,9 +51,6 @@ const Header = () => {
                     }
                 </div>
             </div>
-           
-
-
             <div className="flex justify-center items-center gap-24 text-xl bg-[#fff7f795] py-3 ">
                 <NavLink to="/" className={({ isActive }) => isActive ? 'active-link' : ''}>Home</NavLink>
                 <NavLink to="/instructors" className={({ isActive }) => isActive ? 'active-link' : ''}>Instructors</NavLink>

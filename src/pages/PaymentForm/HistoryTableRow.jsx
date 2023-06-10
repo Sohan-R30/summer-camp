@@ -2,10 +2,12 @@ import moment from 'moment';
 
 
 const HistoryTableRow = ({ SingleClass, index }) => {
+    
     const { className, classPhoto, instructorEmail, price } = SingleClass.storedClass || {}
 
     const date = new Date(SingleClass?.date)
     const actualDate = moment(date).format('llll');
+
     return (
         <>
             {

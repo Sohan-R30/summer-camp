@@ -12,42 +12,39 @@ const TableRow = ({ user, refetch, index }) => {
     const [axiosSecure] = useAxiosSecure();
 
     const handleMakeAdmin = (id) => {
-        console.log(id,role);
-
         axiosSecure.patch(`/users/admin/${id}`)
             .then((data) => {
-                if(data?.data?.modifiedCount){
+                if (data?.data?.modifiedCount) {
                     refetch()
                     setDisabledAdmin(true)
+                    setDisableInstructor(false)
                     Swal.fire({
                         position: 'top-center',
                         icon: 'success',
                         title: 'User make admin Successfully',
                         showConfirmButton: false,
                         timer: 500
-                      })
+                    })
                 }
             })
     }
+
     const handleMakeInstructor = (id) => {
-        console.log(id);
-       if(!(role === "admin")){
         axiosSecure.patch(`/users/instructor/${id}`)
-        .then((data) => {
-            if(data?.data?.modifiedCount){
-                refetch()
-                setDisableInstructor(true)
-                Swal.fire({
-                    position: 'top-center',
-                    icon: 'success',
-                    title: 'User make instructor Successfully',
-                    showConfirmButton: false,
-                    timer: 500
-                  })
-            }
-        })
-       }
-        
+            .then((data) => {
+                if (data?.data?.modifiedCount) {
+                    refetch()
+                    setDisableInstructor(true)
+                    setDisabledAdmin(false)
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: 'User make instructor Successfully',
+                        showConfirmButton: false,
+                        timer: 500
+                    })
+                }
+            })
     }
     return (
         <tr className="text-center divide-x divide-slate-300 divide-y divide-y-reverse divide-x-reverse">
@@ -66,16 +63,20 @@ const TableRow = ({ user, refetch, index }) => {
             <td>{role}</td>
             <th>
                 <button
-                 onClick={() => handleMakeInstructor(_id)} 
-                 disabled={disableInstructor || role === "instructor"}
-                 className={`${role === "instructor" ||disableInstructor ? "bg-gray-400 " : "bg-[#83e0f5] font-bold   hover:bg-[#7f9a9f] hover:text-white "}  py-2 px-3 rounded-lg` }
-                 >Make Instructor</button>
+                    onClick={() => handleMakeInstructor(_id)}
+                    disabled={disableInstructor || role === "instructor"}
+                    className={`${role === "instructor" || disableInstructor ? 
+                    "bg-gray-400 " : 
+                    "bg-[#83e0f5] font-bold   hover:bg-[#7f9a9f] hover:text-white "}  py-2 px-3 rounded-lg`}
+                >Make Instructor</button>
             </th>
             <th>
-                <button  
-                onClick={() => handleMakeAdmin(_id)} 
-                disabled={disabledAdmin || role === "admin"}
-                className={`${role === "admin" || disabledAdmin ? "bg-gray-400" : "bg-[#83e0f5] font-bold  hover:bg-[#7f9a9f] hover:text-white"}  py-2 px-3 rounded-lg`}
+                <button
+                    onClick={() => handleMakeAdmin(_id)}
+                    disabled={disabledAdmin || role === "admin"}
+                    className={`${role === "admin" || disabledAdmin ? 
+                    "bg-gray-400" : 
+                    "bg-[#83e0f5] font-bold  hover:bg-[#7f9a9f] hover:text-white"}  py-2 px-3 rounded-lg`}
                 >Make Admin</button>
             </th>
         </tr>

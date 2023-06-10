@@ -23,7 +23,7 @@ export default useClasses;
 
 export const useAllClasses = () => {
     const { data: allClasses = [], refetch } = useQuery({
-        queryKey: ['classes'],
+        queryKey: ['allclasses'],
         queryFn: async () => {
             const res = await axios(`${import.meta.env.VITE_API_URL}/allClasses`)
             return res.data;

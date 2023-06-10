@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 
 
 const Registration = () => {
+
     const [err, setErr] = useState("")
 
     const { createUser, updateUserProfile } = useContext(AuthContext);
@@ -19,39 +20,38 @@ const Registration = () => {
 
     const onSubmit = (data) => {
         setErr("");
-        console.log(data)
+
         createUser(data.email, data.password)
             .then(() => {
                 updateUserProfile(data.name, data.photo)
                     .then(() => {
-                        const storedUser = { 
-                            name: data?.name, 
+                        
+                        const storedUser = {
+                            name: data?.name,
                             email: data?.email,
                             photo: data?.photo,
                             gender: data?.gender,
                             phone: data?.phone,
                             address: data?.address
                         }
-                        axios.put(`${import.meta.env.VITE_API_URL}/users/${data?.email}`, {storedUser })
-                        .then((data) => {
-                            console.log(data);
-                            if (data?.data?.upsertedCount > 0) {
-                                Swal.fire({
-                                    position: 'top-center',
-                                    icon: 'success',
-                                    title: 'User Added Successfully',
-                                    showConfirmButton: false,
-                                    timer: 500
-                                  })
-                                  setTimeout(() => {
-                                    navigate(-2)
-                                  },500)
-                            }
-                          })
+
+                        axios.put(`${import.meta.env.VITE_API_URL}/users/${data?.email}`, { storedUser })
+                            .then((data) => {
+
+                                if (data?.data?.upsertedCount > 0) {
+                                    Swal.fire({
+                                        position: 'top-center',
+                                        icon: 'success',
+                                        title: 'User Added Successfully',
+                                        showConfirmButton: false,
+                                        timer: 500
+                                    })
+                                    setTimeout(() => {
+                                        navigate(-2)
+                                    }, 500)
+                                }
+                            })
                     })
-            })
-            .catch(error => {
-                setErr(error.message);
             })
     };
     return (
@@ -94,7 +94,9 @@ const Registration = () => {
                 </div>
 
                 <div className="relative my-5 w-2/4 mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label htmlFor="password" className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Password</label>
+                    <label 
+                    htmlFor="password" 
+                    className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Password</label>
                     <input
                         type="password"
                         id="password"
@@ -122,7 +124,9 @@ const Registration = () => {
                 </div>
 
                 <div className="relative my-5 w-2/4 mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label htmlFor="photo" className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Photo</label>
+                    <label 
+                    htmlFor="photo" 
+                    className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Photo</label>
                     <input
                         type="url"
                         id="photo"
@@ -156,7 +160,9 @@ const Registration = () => {
                     </div>
                 </div>
                 <div className="relative my-5 w-2/4 mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label htmlFor="address" className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Address</label>
+                    <label 
+                    htmlFor="address" 
+                    className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Address</label>
                     <input
                         type="text"
                         id="address"
@@ -166,7 +172,10 @@ const Registration = () => {
                         {...register("address")}
                     />
                 </div>
-                <input type="submit" value="Sign Up" className="btn font-bold mx-auto w-2/4 rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#77dcf0] to-[#83e0f5d3] hover:bg-[#63c6cfd3] hover:via-[#1c637188]" />
+                <input 
+                type="submit" 
+                value="Sign Up" 
+                className="btn font-bold mx-auto w-2/4 rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#77dcf0] to-[#83e0f5d3] hover:bg-[#63c6cfd3] hover:via-[#1c637188]" />
             </form>
             <div className="divider w-2/4 mx-auto"></div>
             <div className="w-2/4 mx-auto text-center  flex items-center ">

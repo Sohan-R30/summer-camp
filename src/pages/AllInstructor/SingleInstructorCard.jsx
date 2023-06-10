@@ -2,16 +2,18 @@ import { useState } from 'react';
 import cardbg from "../../assets/ShinyOverlay.svg"
 import CardFlip from "react-card-flip";
 
-const SingleInstructorCard = ({singleClass}) => {
-    console.log("🚀 ~ file: SingleInstructorCard.jsx:6 ~ SingleInstructorCard ~ singleClass:", singleClass)
+const SingleInstructorCard = ({ singleClass }) => {
+
     const [isFlipped, setIsFlipped] = useState(false);
-    const { availableSeats, className, classPhoto, instructorName, price,totalEnrolledStudent} = singleClass.storedClass || {}
+    const { availableSeats, className, classPhoto, instructorName, price, totalEnrolledStudent } = singleClass.storedClass || {}
+    
     const backgrounStyle = {
         backgroundImage: `url(${cardbg})`,
     };
+    
     return (
         <div className="rounded-2xl">
-        <CardFlip
+            <CardFlip
                 isFlipped={isFlipped}
                 flipDirection="vertical"
                 flipSpeedBackToFront={2}
@@ -31,8 +33,8 @@ const SingleInstructorCard = ({singleClass}) => {
                 </div>
                 <div style={backgrounStyle} onMouseLeave={() => setIsFlipped(!isFlipped)} className="border-2 w-80 py-32 flex flex-col justify-center items-center shadow-xl rounded-lg ">
                     <div className="text-center my-4">
-                    {/* {address && <p><span className="font-semibold text-gray-400">Address</span> : <span>{address}</span></p>} */}
-                {/* <p><span className="font-semibold text-gray-400">Email</span> : <span>{singleClass?.email}</span></p>  */}
+                        {/* {address && <p><span className="font-semibold text-gray-400">Address</span> : <span>{address}</span></p>} */}
+                        {/* <p><span className="font-semibold text-gray-400">Email</span> : <span>{singleClass?.email}</span></p>  */}
                     </div>
                 </div>
             </CardFlip>

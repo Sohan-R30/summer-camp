@@ -5,13 +5,11 @@ import { useState } from 'react';
 import UpdateClassModal from './UpdateClassModal';
 
 
-// TODO : Total Student EnrolledMent
-
-
 const SingleClass = ({ singleClass, refetch }) => {
+
     const [isFlipped, setIsFlipped] = useState(false);
     const [isOpen, setIsOpen] = useState(false)
-    const { availableSeats, className, classPhoto, instructorName, status,totalEnrolledStudent } = singleClass.storedClass || {}
+    const { availableSeats, className, classPhoto, instructorName, status, totalEnrolledStudent } = singleClass.storedClass || {}
 
     const backgrounStyle = {
         backgroundImage: `url(${cardbg})`,
@@ -33,8 +31,8 @@ const SingleClass = ({ singleClass, refetch }) => {
                             <p
                                 className={`text-end 
                                 ${status === "pending" ? "text-pink-400"
-                                : status === "approved" ? "text-green-400"
-                                : status === "deny" ? "text-red-400" : ""} 
+                                        : status === "approved" ? "text-green-400"
+                                            : status === "deny" ? "text-red-400" : ""} 
                                 font-bold `}>{status}</p>
                         </div>
                         <p><span className="font-semibold text-gray-400">Instructor</span> : <span>{instructorName}</span></p>
@@ -42,7 +40,10 @@ const SingleClass = ({ singleClass, refetch }) => {
                         <p><span className="font-semibold text-gray-400">Total Enrolled Students</span> : <span>{totalEnrolledStudent}</span></p>
                     </div>
                 </div>
-                <div style={backgrounStyle} onMouseLeave={() => setIsFlipped(!isFlipped)} className="border-2 w-80 py-32 flex flex-col justify-center items-center shadow-xl rounded-lg ">
+                <div 
+                style={backgrounStyle} 
+                onMouseLeave={() => setIsFlipped(!isFlipped)} 
+                className="border-2 w-80 py-32 flex flex-col justify-center items-center shadow-xl rounded-lg ">
                     <div className="text-center my-4">
                         {singleClass?.feedback && (
                             <>
@@ -53,7 +54,6 @@ const SingleClass = ({ singleClass, refetch }) => {
                         }
                         <div className="my-3" onClick={() => setIsOpen(true)}>
                             <Button>Update</Button>
-                            {/* <button className="border p-3">update</button> */}
                         </div>
                     </div>
                 </div>

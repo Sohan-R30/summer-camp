@@ -5,7 +5,7 @@ import FeedbackModal from "./FeedbackModal";
 
 
 const ClassTableRow = ({ SingleClass, index, refetch }) => {
-    const { availableSeats, className, classPhoto, instructorEmail, instructorName, price, status,totalEnrolledStudent } = SingleClass.storedClass || {}
+    const { availableSeats, className, classPhoto, instructorEmail, instructorName, price, status, totalEnrolledStudent } = SingleClass.storedClass || {}
 
     const [isOpen, setIsOpen] = useState(false)
     const [disabledApproved, setdisabledApproved] = useState(false);
@@ -17,11 +17,9 @@ const ClassTableRow = ({ SingleClass, index, refetch }) => {
     const [axiosSecure] = useAxiosSecure();
 
     const handleApproved = (id) => {
-        console.log(id);
 
         axiosSecure.patch(`/classes/admin/approved/${id}`)
             .then((data) => {
-                console.log(data?.data)
                 if (data?.data?.modifiedCount) {
                     refetch()
                     setdisabledApproved(true)
@@ -34,10 +32,8 @@ const ClassTableRow = ({ SingleClass, index, refetch }) => {
                     })
                 }
             })
-            .catch(error => console.log(error))
     }
     const handleDeny = (id) => {
-        console.log(id);
         axiosSecure.patch(`/classes/admin/deny/${id}`)
             .then((data) => {
                 if (data?.data?.modifiedCount) {
@@ -54,8 +50,6 @@ const ClassTableRow = ({ SingleClass, index, refetch }) => {
             })
     }
     const handleSendFeedBack = (id) => {
-        console.log(id);
-        console.log({ giveFeedback });
         axiosSecure.patch(`/classes/admin/feedback/${id}`, { giveFeedback })
             .then((data) => {
                 if (data?.data?.modifiedCount) {
@@ -72,7 +66,6 @@ const ClassTableRow = ({ SingleClass, index, refetch }) => {
                 }
             })
     }
-    console.log(SingleClass.feedback);
 
     return (
         <>
@@ -91,42 +84,45 @@ const ClassTableRow = ({ SingleClass, index, refetch }) => {
                 <td className="text-green-600 font-bold">{availableSeats}</td>
                 <td className="text-green-600 font-bold">{totalEnrolledStudent}</td>
                 <td className="text-red-600 font-bold">{price}</td>
-                <td 
-                className={`
-                ${status === "pending" ? "text-pink-400" 
-                : status === "approved" ? "text-green-400" 
-                : status === "deny" ? "text-red-400" : "" } 
+                <td
+                    className={`
+                ${status === "pending" ? "text-pink-400"
+                            : status === "approved" ? "text-green-400"
+                                : status === "deny" ? "text-red-400" : ""} 
                 font-bold `}
                 >{status}</td>
                 <th>
                     <button
                         onClick={() => handleApproved(SingleClass._id)}
                         disabled={disabledApproved || status === "approved" || status === "deny"}
-                        className={`${(status === "approved" || status === "deny") || disabledApproved ? "bg-gray-400 " : "bg-[#83e0f5] font-bold   hover:bg-[#7f9a9f] hover:text-white "}  py-2 px-3 rounded-lg`}
+                        className={`${(status === "approved" || status === "deny") || disabledApproved ? 
+                        "bg-gray-400 " : "bg-[#83e0f5] font-bold   hover:bg-[#7f9a9f] hover:text-white "}  py-2 px-3 rounded-lg`}
                     >Aprroved</button>
                 </th>
                 <th>
                     <button
                         onClick={() => handleDeny(SingleClass._id)}
                         disabled={disabledDeny || status === "approved" || status === "deny"}
-                        className={`${(status === "approved" || status === "deny") || disabledApproved ? "bg-gray-400 " : "bg-[#83e0f5] font-bold  hover:bg-[#7f9a9f] hover:text-white"}  py-2 px-3 rounded-lg`}
+                        className={`${(status === "approved" || status === "deny") || disabledApproved ? 
+                        "bg-gray-400 " : "bg-[#83e0f5] font-bold  hover:bg-[#7f9a9f] hover:text-white"}  py-2 px-3 rounded-lg`}
                     >Deny</button>
                 </th>
                 <th>
                     <button onClick={() => setIsOpen(true)}
                         disabled={disabledFeedback || SingleClass?.feedback}
-                        className={`${SingleClass?.feedback ? "bg-gray-400" : "bg-[#83e0f5] font-bold  hover:bg-[#7f9a9f] hover:text-white"}  py-2 px-3 rounded-lg`}
+                        className={`${SingleClass?.feedback ? 
+                        "bg-gray-400" : "bg-[#83e0f5] font-bold  hover:bg-[#7f9a9f] hover:text-white"}  py-2 px-3 rounded-lg`}
                     >Send Feedback</button>
                     <FeedbackModal
-                handleSendFeedBack={handleSendFeedBack}
-                setGiveFeedback={setGiveFeedback}
-                isOpen={isOpen}
-                id={SingleClass._id}
-                setIsOpen={setIsOpen}
-            />
+                        handleSendFeedBack={handleSendFeedBack}
+                        setGiveFeedback={setGiveFeedback}
+                        isOpen={isOpen}
+                        id={SingleClass._id}
+                        setIsOpen={setIsOpen}
+                    />
                 </th>
             </tr>
-            
+
         </>
 
     );

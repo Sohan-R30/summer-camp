@@ -19,11 +19,12 @@ const backgrounStyle = {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
-    <QueryClientProvider client={queryClient}>
-      <div style={backgrounStyle} className='max-w-7xl mx-auto'>
-        <RouterProvider router={router} />
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <div style={backgrounStyle} className='max-w-7xl mx-auto'>
+          <RouterProvider router={router} />
+        </div>
       </QueryClientProvider>
     </AuthProvider>
   </React.StrictMode>,
 )
+console.log

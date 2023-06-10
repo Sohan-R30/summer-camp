@@ -6,9 +6,11 @@ import SelectedClassCard from "./selectedClassCard";
 
 
 const MyselectedClasses = () => {
+    
     const { user, userLoading } = useContext(AuthContext)
     const [axiosSecure] = useAxiosSecure();
-    const { data: selectedClasses = [], isLoading, refetch, } = useQuery({
+    
+    const { data: selectedClasses = [], isLoading, refetch } = useQuery({
         queryKey: ["classes", user?.email],
         enabled: !userLoading,
         queryFn: async () => {
@@ -16,7 +18,7 @@ const MyselectedClasses = () => {
             return res?.data;
         },
     })
-    console.log(selectedClasses)
+
     return (
         <div>
             {

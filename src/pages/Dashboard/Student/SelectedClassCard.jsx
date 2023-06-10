@@ -1,28 +1,42 @@
 import Button from "../../../components/shared/Button/Button";
 import CardFlip from 'react-card-flip';
 import cardbg from "../../../assets/ShinyOverlay.svg"
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const SelectedClassCard = ({ singleClass, refetch }) => {
-    console.log(singleClass);
+
     const [isFlipped, setIsFlipped] = useState(false);
-    const { availableSeats, className, classPhoto, instructorName,totalEnrolledStudent } = singleClass.storedClass || {}
+    const { availableSeats, className, classPhoto, instructorName, totalEnrolledStudent } = singleClass.storedClass || {}
+
     const backgrounStyle = {
         backgroundImage: `url(${cardbg})`,
     };
-    // const navigate = useNavigate();
+
+    const { user } = useContext(AuthContext)
+    const [axiosSecure] = useAxiosSecure();
 
     const handleDelete = (id) => {
-        refetch()
-        console.log(id);
+
+        axiosSecure.delete(`/selectedClass/delete?id=${id}&selectedEmail=${user?.email}`)
+            .then(data => {
+                if (data?.data?.deletedCount) {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: 'Delete From Selected Card',
+                        showConfirmButton: false,
+                        timer: 300
+                    })
+                    refetch()
+                }
+            })
     }
-    // const handlePay = (id) => {
-    //     console.log(id);
-    //     refetch()
-    //     navigate("/dashboard/payment-stripe")
-    // }
+
     return (
         <>
             <CardFlip
@@ -48,15 +62,13 @@ const SelectedClassCard = ({ singleClass, refetch }) => {
                         <div className="my-3" onClick={() => handleDelete(singleClass._id)}>
                             <Button>Delete</Button>
                         </div>
-                        {/* <div className="my-3" onClick={() => handlePay(singleClass._id)}> */}
                         <Link to={`/dashboard/payment-stripe/${singleClass._id}`}>
                             <Button>Pay</Button>
-                            </Link>
-                        {/* </div> */}
+                        </Link>
                     </div>
                 </div>
             </CardFlip>
-            
+
         </>
     )
 };

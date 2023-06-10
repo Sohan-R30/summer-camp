@@ -5,8 +5,10 @@ import EnrolledClasses from "./enrolledClasses";
 import { useQuery } from "@tanstack/react-query";
 
 const MyenrolledClasses = () => {
+
     const { user, userLoading } = useContext(AuthContext)
     const [axiosSecure] = useAxiosSecure();
+
     const { data: enrolledClasses = [], isLoading, } = useQuery({
         queryKey: ["classes", user?.email],
         enabled: !userLoading,
@@ -15,7 +17,7 @@ const MyenrolledClasses = () => {
             return res?.data;
         },
     })
-    console.log(enrolledClasses)
+
     return (
         <div>
             {
