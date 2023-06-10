@@ -30,6 +30,7 @@ const Addclasses = () => {
         const storedClass = {
             ...data,
             status: "pending",
+            totalEnrolledStudent: 0,
         }
         console.log(storedClass)
         axiosSecure.post("/classes/add", {storedClass})

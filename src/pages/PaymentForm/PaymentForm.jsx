@@ -100,6 +100,7 @@ const PaymentForm = () => {
         if (paymentIntent.status === 'succeeded') {
             const paymentInfo = {
                 "storedClass.availableSeats": (paymentClass?.storedClass?.availableSeats - 1),
+                "storedClass.totalEnrolledStudent": (paymentClass?.storedClass?.totalEnrolledStudent + 1),
                 transactionId: paymentIntent.id,
                 date: new Date(),
             }

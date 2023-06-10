@@ -25,6 +25,7 @@ const ManageClasses = () => {
                     <th>Instructor Email</th>
                     <th>Class Name</th>
                     <th>Available Seats</th>
+                    <th>Total Enrolled Students</th>
                     <th>Price</th>
                     <th>Status</th>
                     <th>Approve</th>

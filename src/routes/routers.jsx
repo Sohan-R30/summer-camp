@@ -21,6 +21,7 @@ import AllClasses from "../pages/AllClasses/AllClasses";
 import PaymentPage from "../pages/PaymentForm/PaymentPage";
 import PaymentHistory from "../pages/PaymentForm/PaymentHistory";
 import AllInstructor from "../pages/AllInstructor/AllInstructor";
+import OneInsturorClasses from "../pages/AllInstructor/OneInsturorClasses";
 
 const router = createBrowserRouter(
     [
@@ -36,6 +37,10 @@ const router = createBrowserRouter(
                 {
                     path: "/instructors",
                     element: <AllInstructor></AllInstructor>
+                },
+                {
+                    path: "/instructor/:email",
+                    element: <OneInsturorClasses></OneInsturorClasses>
                 },
                 {
                     path: "/classes",

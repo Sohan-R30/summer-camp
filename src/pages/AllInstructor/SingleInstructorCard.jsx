@@ -1,18 +1,17 @@
-import { useState } from "react";
-import cardbg from "../../../assets/ShinyOverlay.svg"
-import CardFlip from 'react-card-flip';
+import { useState } from 'react';
+import cardbg from "../../assets/ShinyOverlay.svg"
+import CardFlip from "react-card-flip";
 
-
-const EnrolledClasses = ({ singleClass }) => {
-    console.log(singleClass);
-    const [isFlipped, setIsFlipped] = useState(false)
-    const { availableSeats, className, classPhoto, instructorName,totalEnrolledStudent } = singleClass.storedClass || {}
+const SingleInstructorCard = ({singleClass}) => {
+    console.log("🚀 ~ file: SingleInstructorCard.jsx:6 ~ SingleInstructorCard ~ singleClass:", singleClass)
+    const [isFlipped, setIsFlipped] = useState(false);
+    const { availableSeats, className, classPhoto, instructorName, price,totalEnrolledStudent} = singleClass.storedClass || {}
     const backgrounStyle = {
         backgroundImage: `url(${cardbg})`,
     };
     return (
-        <>
-            <CardFlip
+        <div className="rounded-2xl">
+        <CardFlip
                 isFlipped={isFlipped}
                 flipDirection="vertical"
                 flipSpeedBackToFront={2}
@@ -23,19 +22,22 @@ const EnrolledClasses = ({ singleClass }) => {
                     <div className="card-body bg-[#7dadad26]">
                         <div className="flex items-center">
                             <h2 className="card-title">{className}</h2>
-                            <p className="text-green-400 font-bold text-end text-xl" >{singleClass.enrolled && "Enrolled"}</p>
                         </div>
                         <p><span className="font-semibold text-gray-400">Instructor</span> : <span>{instructorName}</span></p>
                         <p><span className="font-semibold text-gray-400">Available Seats</span> : <span>{availableSeats}</span></p>
+                        <p><span className="font-semibold text-gray-400">Price</span> : <span>{price}</span></p>
                         <p><span className="font-semibold text-gray-400">Total Enrolled Students</span> : <span>{totalEnrolledStudent}</span></p>
                     </div>
                 </div>
                 <div style={backgrounStyle} onMouseLeave={() => setIsFlipped(!isFlipped)} className="border-2 w-80 py-32 flex flex-col justify-center items-center shadow-xl rounded-lg ">
+                    <div className="text-center my-4">
+                    {/* {address && <p><span className="font-semibold text-gray-400">Address</span> : <span>{address}</span></p>} */}
+                {/* <p><span className="font-semibold text-gray-400">Email</span> : <span>{singleClass?.email}</span></p>  */}
+                    </div>
                 </div>
             </CardFlip>
-
-        </>
-    )
+        </div>
+    );
 };
 
-export default EnrolledClasses;
+export default SingleInstructorCard;

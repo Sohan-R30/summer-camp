@@ -5,7 +5,7 @@ import FeedbackModal from "./FeedbackModal";
 
 
 const ClassTableRow = ({ SingleClass, index, refetch }) => {
-    const { availableSeats, className, classPhoto, instructorEmail, instructorName, price, status } = SingleClass.storedClass || {}
+    const { availableSeats, className, classPhoto, instructorEmail, instructorName, price, status,totalEnrolledStudent } = SingleClass.storedClass || {}
 
     const [isOpen, setIsOpen] = useState(false)
     const [disabledApproved, setdisabledApproved] = useState(false);
@@ -89,6 +89,7 @@ const ClassTableRow = ({ SingleClass, index, refetch }) => {
                 <td>{instructorEmail}</td>
                 <td>{className}</td>
                 <td className="text-green-600 font-bold">{availableSeats}</td>
+                <td className="text-green-600 font-bold">{totalEnrolledStudent}</td>
                 <td className="text-red-600 font-bold">{price}</td>
                 <td 
                 className={`

@@ -12,7 +12,7 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 const ShowClasses = ({ singleClass }) => {
     console.log("🚀 ~ file: showClasses.jsx:13 ~ ShowClasses ~ singleClass:", singleClass)
     const [isFlipped, setIsFlipped] = useState(false);
-    const { availableSeats, className, classPhoto, instructorName } = singleClass.storedClass || {}
+    const { availableSeats, className, classPhoto, instructorName,totalEnrolledStudent } = singleClass.storedClass || {}
 
     const {user} = useContext(AuthContext);
     const [isAdmin] = useAdmin();
@@ -68,7 +68,7 @@ const ShowClasses = ({ singleClass }) => {
                     </div>
                     <p><span className="font-semibold text-gray-400">Instructor</span> : <span>{instructorName}</span></p>
                     <p><span className="font-semibold text-gray-400">Available Seats</span> : <span>{availableSeats}</span></p>
-                    <p><span className="font-semibold text-gray-400">Total Enrolled Students</span> : <span>34</span></p>
+                    <p><span className="font-semibold text-gray-400">Total Enrolled Students</span> : <span>{totalEnrolledStudent}</span></p>
                 </div>
             </div>
             <div style={backgrounStyle} onMouseLeave={() => setIsFlipped(!isFlipped)} className="border-2 w-80 py-32 flex flex-col justify-center items-center shadow-xl rounded-lg ">

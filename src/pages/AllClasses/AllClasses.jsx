@@ -7,11 +7,11 @@ const AllClasses = () => {
     return (
         <div className="flex gap-10 flex-wrap py-10">
         {
-       allClasses.map(singleClass => <ShowClasses
+       allClasses && Array.isArray(allClasses) ? allClasses.map(singleClass => <ShowClasses
        singleClass={singleClass}
        refetch={refetch}
        key={singleClass?._id}
-       ></ShowClasses>)
+       ></ShowClasses>) : ""
    }
 
    </div>
