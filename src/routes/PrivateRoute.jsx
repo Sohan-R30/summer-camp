@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { Navigate, useLocation } from "react-router-dom"
 import { AuthContext } from "../Providers/AuthProvider"
+import BarLoader from "react-spinners/BarLoader";
 
 
 const PrivateRoute = ({ children }) => {
@@ -9,7 +10,7 @@ const PrivateRoute = ({ children }) => {
   
     if (userLoading) {
       return (
-        <p>laoding...</p>
+        <p><BarLoader color="#38ecd4" /></p>
       )
   }
   if (user) {

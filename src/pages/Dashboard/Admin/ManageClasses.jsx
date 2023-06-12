@@ -7,7 +7,7 @@ import BarLoader from "react-spinners/BarLoader";
 
 const ManageClasses = () => {
     const [axiosSecure] = useAxiosSecure();
-    const { data: classes = [], isLoading, refetch, } = useQuery({
+    const { data: classes = [], isLoading, refetch } = useQuery({
         queryKey: ["classes"],
         queryFn: async () => {
             const res = await axiosSecure(`/classes`);

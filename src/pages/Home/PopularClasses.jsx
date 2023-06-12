@@ -2,10 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Typewriter } from "react-simple-typewriter";
 import PopularSingleClassCard from "./PopularSingleClassCard";
+import BarLoader from "react-spinners/BarLoader";
 
 
 const PopularClasses = () => {
-    const { data: popularClasses = [], refetch } = useQuery({
+    const { data: popularClasses = [], refetch,isLoading } = useQuery({
         queryKey: ['popularClasses'],
         queryFn: async () => {
             const res = await axios(`${import.meta.env.VITE_API_URL}/popularClasses`)
@@ -34,6 +35,11 @@ const PopularClasses = () => {
                     refetch={refetch}
                     key={singleClass?._id}
                 ></PopularSingleClassCard>) : ""
+            }
+            {
+                isLoading && (
+                    <p><BarLoader color="#38ecd4" /></p>
+                )
             }
 
         </div>

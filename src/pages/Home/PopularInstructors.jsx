@@ -2,11 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import SinglePopularInstructor from "./singlePopularInstructor";
 import { Typewriter } from "react-simple-typewriter";
+import BarLoader from "react-spinners/BarLoader";
 
 
 const PopularInstructors = () => {
 
-    const { data: popularInstructors = [], refetch } = useQuery({
+    const { data: popularInstructors = [], refetch,isLoading } = useQuery({
         queryKey: ['popularInstructors'],
         queryFn: async () => {
             const res = await axios(`${import.meta.env.VITE_API_URL}/popularInstructors`)
@@ -36,7 +37,11 @@ const PopularInstructors = () => {
                     key={index}
                 ></SinglePopularInstructor>) : ""
             }
-
+            {
+                isLoading && (
+                    <p><BarLoader color="#38ecd4" /></p>
+                )
+            }
 
         </div>
         </div>

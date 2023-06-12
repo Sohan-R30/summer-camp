@@ -1,9 +1,10 @@
 import SingleClass from "./SingleClass";
 import useClasses from "../../../hooks/useClasses";
+import BarLoader from "react-spinners/BarLoader";
 
 const MyClasses = () => {
 
-    const [classes, refetch] = useClasses();
+    const [classes, refetch,isLoading] = useClasses();
     
     return (
 
@@ -15,7 +16,11 @@ const MyClasses = () => {
                     key={singleClass?._id}
                 ></SingleClass>)
             }
-
+            {
+                isLoading && (
+                    <p><BarLoader color="#38ecd4" /></p>
+                )
+            }
         </div>
     );
 };
