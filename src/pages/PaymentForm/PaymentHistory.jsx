@@ -20,10 +20,8 @@ const PaymentHistory = () => {
     })
 
     const totalPrice = history?.reduce((sum, currentPrice) => {
-        return sum + currentPrice?.storedClass?.price;
+        return parseFloat(sum) + parseFloat(currentPrice?.storedClass?.price);
     }, 0);
-
-
     return (
         <div className="overflow-x-auto px-10 sm:px-10 py-10 max-w-5xl my-2 mx-auto shadow-md rounded-lg">
             <div className="text-center mb-10 text-2xl font-bold bg-primaryColor py-5">

@@ -20,36 +20,44 @@ const Registration = () => {
 
     const onSubmit = (data) => {
         setErr("");
-
-        createUser(data.email, data.password)
-            .then(() => {
-                updateUserProfile(data.name, data.photo)
+        const formData = new FormData();
+        formData.append('image', data?.photo[0])
+        fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(photoUrl => {
+                data.photo = photoUrl?.data?.display_url
+                createUser(data.email, data.password)
                     .then(() => {
-                        
-                        const storedUser = {
-                            name: data?.name,
-                            email: data?.email,
-                            photo: data?.photo,
-                            gender: data?.gender,
-                            phone: data?.phone,
-                            address: data?.address
-                        }
-
-                        axios.put(`${import.meta.env.VITE_API_URL}/users/${data?.email}`, { storedUser })
-                            .then((data) => {
-
-                                if (data?.data?.upsertedCount > 0) {
-                                    Swal.fire({
-                                        position: 'top-center',
-                                        icon: 'success',
-                                        title: 'User Added Successfully',
-                                        showConfirmButton: false,
-                                        timer: 500
-                                    })
-                                    setTimeout(() => {
-                                        navigate(-2)
-                                    }, 500)
+                        updateUserProfile(data.name, data.photo)
+                            .then(() => {
+                                const storedUser = {
+                                    name: data?.name,
+                                    email: data?.email,
+                                    photo: data?.photo,
+                                    gender: data?.gender,
+                                    phone: data?.phone,
+                                    address: data?.address
                                 }
+
+                                axios.put(`${import.meta.env.VITE_API_URL}/users/${data?.email}`, { storedUser })
+                                    .then((data) => {
+
+                                        if (data?.data?.upsertedCount > 0) {
+                                            Swal.fire({
+                                                position: 'top-center',
+                                                icon: 'success',
+                                                title: 'User Added Successfully',
+                                                showConfirmButton: false,
+                                                timer: 500
+                                            })
+                                            setTimeout(() => {
+                                                navigate(-2)
+                                            }, 500)
+                                        }
+                                    })
                             })
                     })
             })
@@ -94,9 +102,9 @@ const Registration = () => {
                 </div>
 
                 <div className="relative my-5 w-2/4 mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label 
-                    htmlFor="password" 
-                    className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Password</label>
+                    <label
+                        htmlFor="password"
+                        className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Password</label>
                     <input
                         type="password"
                         id="password"
@@ -122,20 +130,18 @@ const Registration = () => {
                     />
                     {errors.confirmPassword && <span>Does not match Your Password</span>}
                 </div>
-
                 <div className="relative my-5 w-2/4 mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label 
-                    htmlFor="photo" 
-                    className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Photo</label>
+                    <label htmlFor="photo" className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Upload Class Photo</label>
                     <input
-                        type="url"
+                        type="file"
                         id="photo"
-                        placeholder="Photo Url"
+                        placeholder="Upload Your Class Photo"
                         name="photo"
+                        accept="image/*"
                         className="border-2 py-4 px-2 mx-auto rounded-md w-full focus:outline-none bg-white"
                         {...register("photo", { required: true })}
                     />
-                    {errors.photo && <span>This field is required</span>}
+                    {errors.photo && <span>Please Upload A Photo</span>}
                 </div>
                 <div className=" w-2/4 mx-auto grid grid-cols-2 gap-2">
                     <div className="relative my-5 w-full  rounded-md  p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
@@ -160,9 +166,9 @@ const Registration = () => {
                     </div>
                 </div>
                 <div className="relative my-5 w-2/4 mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                    <label 
-                    htmlFor="address" 
-                    className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Address</label>
+                    <label
+                        htmlFor="address"
+                        className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Address</label>
                     <input
                         type="text"
                         id="address"
@@ -172,10 +178,10 @@ const Registration = () => {
                         {...register("address")}
                     />
                 </div>
-                <input 
-                type="submit" 
-                value="Sign Up" 
-                className="btn font-bold mx-auto w-2/4 rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#77dcf0] to-[#83e0f5d3] hover:bg-[#63c6cfd3] hover:via-[#1c637188]" />
+                <input
+                    type="submit"
+                    value="Sign Up"
+                    className="btn font-bold mx-auto w-2/4 rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#77dcf0] to-[#83e0f5d3] hover:bg-[#63c6cfd3] hover:via-[#1c637188]" />
             </form>
             <div className="divider w-2/4 mx-auto"></div>
             <div className="w-2/4 mx-auto text-center  flex items-center ">

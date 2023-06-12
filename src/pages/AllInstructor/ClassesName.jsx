@@ -1,6 +1,6 @@
 const ClassesName = ({data}) => {
     return (
-        <p>Classes Name : {data?.storedClass?.className}</p>
+        <p>{data?.storedClass?.className}</p>
     );
 };
 

@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 
 const UpdateClassModal = ({ setIsOpen, isOpen, singleClass, refetch }) => {
 
-    const { availableSeats, className, classPhoto, price, status, totalEnrolledStudent } = singleClass.storedClass || {}
+    const { availableSeats, className, price, status, totalEnrolledStudent } = singleClass.storedClass || {}
     const [err, setErr] = useState("")
 
     const { user } = useContext(AuthContext);
@@ -18,42 +18,39 @@ const UpdateClassModal = ({ setIsOpen, isOpen, singleClass, refetch }) => {
 
     const onSubmit = (data) => {
         setErr("");
-        // console.log(data, data?.classPhoto)
-        // const formData = new FormData();
-        // formData.append('photo', data?.classPhoto[0])
-        // fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`, {
-        //     method: 'POST',
-        //     body: formData
-        // })
-        // .then(res => res.json())
-        // .then(imgResponse => {
-        //     console.log("🚀 ~ file: Addclasses.jsx:28 ~ onSubmit ~ imgURL:", imgResponse)
-        // })
-
-
-        const storedClass = {
-            className: data?.updateClassName,
-            classPhoto: data?.updateClassPhoto,
-            instructorName: data?.updateInstructorName,
-            instructorEmail: data?.upadeInstructorEmail,
-            availableSeats: data?.updateAvailableSeats,
-            price: data?.updatePrice,
-            status: status,
-            totalEnrolledStudent: totalEnrolledStudent
-        }
-        axiosSecure.patch(`/classes/update/${singleClass?._id}`, { storedClass })
-            .then(data => {
-                if (data?.data?.modifiedCount || data.status === 200) {
-                    refetch()
-                    Swal.fire({
-                        position: 'top-center',
-                        icon: 'success',
-                        title: 'Class Updated Successfully',
-                        showConfirmButton: false,
-                        timer: 500
-                    })
-                    setIsOpen(false)
+        const formData = new FormData();
+        formData.append('image', data?.updateClassPhoto[0])
+        fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(photoUrl => {
+                data.updateClassPhoto =  photoUrl?.data?.display_url
+                const storedClass = {
+                    className: data?.updateClassName,
+                    classPhoto: data?.updateClassPhoto,
+                    instructorName: data?.updateInstructorName,
+                    instructorEmail: data?.upadeInstructorEmail,
+                    availableSeats: data?.updateAvailableSeats,
+                    price: data?.updatePrice,
+                    status: status,
+                    totalEnrolledStudent: totalEnrolledStudent
                 }
+                axiosSecure.patch(`/classes/update/${singleClass?._id}`, { storedClass })
+                    .then(data => {
+                        if (data?.data?.modifiedCount || data.status === 200) {
+                            refetch()
+                            Swal.fire({
+                                position: 'top-center',
+                                icon: 'success',
+                                title: 'Class Updated Successfully',
+                                showConfirmButton: false,
+                                timer: 500
+                            })
+                            setIsOpen(false)
+                        }
+                    })
             })
     };
     return (
@@ -83,8 +80,8 @@ const UpdateClassModal = ({ setIsOpen, isOpen, singleClass, refetch }) => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel 
-                                className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel
+                                    className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <div>
                                         <div className='text-3xl text-center my-10'>
                                             <Fade delay={1e3} cascade damping={1e-1}>Update Your Class</Fade>
@@ -98,9 +95,9 @@ const UpdateClassModal = ({ setIsOpen, isOpen, singleClass, refetch }) => {
                                             className="flex flex-col justify-center gap-5"
                                         >
                                             <div className="relative w-full  mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                                                <label 
-                                                htmlFor="updateClassName" 
-                                                className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Class name</label>
+                                                <label
+                                                    htmlFor="updateClassName"
+                                                    className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Class name</label>
                                                 <input
                                                     type="text"
                                                     id="updateClassName"
@@ -112,41 +109,27 @@ const UpdateClassModal = ({ setIsOpen, isOpen, singleClass, refetch }) => {
                                                 />
                                                 {errors.updateClassName && <span>Give Your Class Name</span>}
                                             </div>
-
-                                            {/* <div className="relative my-5 w-full mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                                                <label htmlFor="updateClassPhoto" className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Class Photo</label>
+                                            <div className="relative my-5 w-full mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
+                                                <label
+                                                    htmlFor="updateClassPhoto"
+                                                    className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Update Class Photo</label>
                                                 <input
                                                     type="file"
                                                     id="updateClassPhoto"
-                                                    placeholder="Upload Your Class Photo"
-                                                    defaultValue={classPhoto}
+                                                    placeholder="Update Your Class Photo"
+                                                    // defaultValue={classPhoto}
                                                     name="updateClassPhoto"
+                                                    accept="image/*"
                                                     className="border-2 py-4 px-2 mx-auto rounded-md w-full focus:outline-none bg-white"
                                                     {...register("updateClassPhoto", { required: true })}
                                                 />
                                                 {errors.updateClassPhoto && <span>Please Upload A Photo</span>}
-                                            </div> */}
-
-                                            <div className="relative my-5 w-full mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                                                <label 
-                                                htmlFor="updateClassPhoto" 
-                                                className="bg-[#83e0f5] px-4 py-1 absolute -top-4 left-3 shadow-lg rounded-md">Class Photo Url</label>
-                                                <input
-                                                    type="url"
-                                                    id="updateClassPhoto"
-                                                    placeholder="Update Your Class Url"
-                                                    defaultValue={classPhoto}
-                                                    name="updateClassPhoto"
-                                                    className="border-2 py-4 px-2 mx-auto rounded-md w-full focus:outline-none bg-white"
-                                                    {...register("updateClassPhoto", { required: true })}
-                                                />
-                                                {errors.classPhoto && <span>Please Upload A Photo</span>}
                                             </div>
 
                                             <div className="relative w-full  mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                                                <label 
-                                                htmlFor="updateInstructorName" 
-                                                className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Instructor name</label>
+                                                <label
+                                                    htmlFor="updateInstructorName"
+                                                    className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Instructor name</label>
                                                 <input
                                                     type="text"
                                                     id="updateInstructorName"
@@ -159,9 +142,9 @@ const UpdateClassModal = ({ setIsOpen, isOpen, singleClass, refetch }) => {
                                             </div>
 
                                             <div className="relative w-full  mx-auto rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#ff11116f] to-[#e4de397e]">
-                                                <label 
-                                                htmlFor="upadeInstructorEmail" 
-                                                className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Instructor Email</label>
+                                                <label
+                                                    htmlFor="upadeInstructorEmail"
+                                                    className="bg-[#83e0f5] rounded-md px-4 py-1 absolute -top-4 left-3 shadow-lg">Instructor Email</label>
                                                 <input
                                                     type="email"
                                                     id="upadeInstructorEmail"
@@ -199,10 +182,10 @@ const UpdateClassModal = ({ setIsOpen, isOpen, singleClass, refetch }) => {
                                                 />
                                                 {errors.updatePrice && <span>Give Your Class Name</span>}
                                             </div>
-                                            <input 
-                                            type="submit" 
-                                            value="Update Class" 
-                                            className="btn font-bold mx-auto w-full rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#77dcf0] to-[#83e0f5d3] hover:bg-[#63c6cfd3] hover:via-[#1c637188]" 
+                                            <input
+                                                type="submit"
+                                                value="Update Class"
+                                                className="btn font-bold mx-auto w-full rounded-md m-4 p-1 bg-gradient-to-r from-[#83e0f5d3] via-[#77dcf0] to-[#83e0f5d3] hover:bg-[#63c6cfd3] hover:via-[#1c637188]"
                                             />
                                         </form>
                                     </div>

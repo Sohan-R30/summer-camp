@@ -1,16 +1,14 @@
 import { useContext, useState } from 'react';
 import CardFlip from 'react-card-flip';
 import cardbg from "../../assets/ShinyOverlay.svg"
-import { AuthContext } from '../../Providers/AuthProvider';
-import Swal from 'sweetalert2'
 import { useLocation, useNavigate } from 'react-router-dom';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import Swal from 'sweetalert2'
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { AuthContext } from '../../Providers/AuthProvider';
 
-
-const ShowClasses = ({ singleClass }) => {
-
+const PopularSingleClassCard = ({singleClass}) => {
     const { availableSeats, className, classPhoto, instructorName, totalEnrolledStudent, price } = singleClass.storedClass || {}
     const [isFlipped, setIsFlipped] = useState(false);
 
@@ -18,7 +16,6 @@ const ShowClasses = ({ singleClass }) => {
     const navigate = useNavigate();
     const [axiosSecure] = useAxiosSecure();
     const location = useLocation();
-
     const backgrounStyle = {
         backgroundImage: `url(${cardbg})`,
     };
@@ -30,7 +27,6 @@ const ShowClasses = ({ singleClass }) => {
             return res.data;
         },
     })
-
     const { data: selectOrEnroll = [] } = useQuery({
         queryKey: ['selectOrEnroll'],
         queryFn: async () => {
@@ -38,7 +34,6 @@ const ShowClasses = ({ singleClass }) => {
             return res.data;
         },
     })
-
 
     const handleSelect = () => {
         if (!(user === null)) {
@@ -69,6 +64,7 @@ const ShowClasses = ({ singleClass }) => {
         }
     }
     return (
+        <>
         <div className={`${availableSeats === 0 ? "bg-red-500" : ""} rounded-2xl w-auto sm:w-80 mx-auto`}>
             <CardFlip
                 isFlipped={isFlipped}
@@ -109,7 +105,8 @@ const ShowClasses = ({ singleClass }) => {
                 </div>
             </CardFlip>
         </div>
+        </>
     );
 };
 
-export default ShowClasses;
+export default PopularSingleClassCard;

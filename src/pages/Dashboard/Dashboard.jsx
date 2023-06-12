@@ -3,6 +3,7 @@ import Footer from "../../components/shared/Footer/Footer";
 import Header from "../../components/shared/Header/Header";
 import useAdmin from "../../hooks/useAdmin";
 import useInstructor from "../../hooks/useInstructor";
+import { Helmet } from "react-helmet-async";
 
 
 const Dashboard = () => {
@@ -12,6 +13,9 @@ const Dashboard = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Summer Camp | Dashboard</title>
+            </Helmet>
             <Header></Header>
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

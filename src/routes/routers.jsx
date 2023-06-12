@@ -2,7 +2,6 @@ import {
     createBrowserRouter,
 } from "react-router-dom";
 import Main from "../layout/Main";
-import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
 import Dashboard from "../pages/Dashboard/Dashboard";
@@ -22,6 +21,7 @@ import PaymentPage from "../pages/PaymentForm/PaymentPage";
 import PaymentHistory from "../pages/PaymentForm/PaymentHistory";
 import AllInstructor from "../pages/AllInstructor/AllInstructor";
 import OneInsturorClasses from "../pages/AllInstructor/OneInsturorClasses";
+import Home from "../pages/Home/Home";
 
 const router = createBrowserRouter(
     [
