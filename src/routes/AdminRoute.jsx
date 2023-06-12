@@ -2,6 +2,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Providers/AuthProvider';
 import { useContext } from 'react';
 import useAdmin from '../hooks/useAdmin';
+import BarLoader from 'react-spinners/BarLoader';
 
 const AdminRoute = ({ children }) => {
     const { user, userLoading } = useContext(AuthContext)
@@ -9,7 +10,7 @@ const AdminRoute = ({ children }) => {
     const location = useLocation();
 
     if (userLoading || isAdminLoading) {
-        return <p>Loading.......</p>
+        return <p><BarLoader color="#38ecd4" /></p>
     }
     else if (user && isAdmin) {
         return children;

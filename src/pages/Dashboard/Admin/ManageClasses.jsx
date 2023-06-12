@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import ClassTableRow from "./ClassTableRow";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import BarLoader from "react-spinners/BarLoader";
 
 
 
@@ -36,7 +37,7 @@ const ManageClasses = () => {
                 <tbody>
                     {
                         isLoading ? (
-                            <tr><td>Loading.....</td></tr>
+                            <tr><td><BarLoader color="#38ecd4" /></td></tr>
                         ) : (
                             <>
                                 {

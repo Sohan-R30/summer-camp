@@ -6,6 +6,7 @@ import useInstructor from "../../hooks/useInstructor";
 import { Helmet } from "react-helmet-async";
 
 
+
 const Dashboard = () => {
 
     const [isAdmin] = useAdmin();
@@ -66,7 +67,7 @@ const Dashboard = () => {
                                         <NavLink
                                             to="/dashboard/myenrolled-classes"
                                             className={({ isActive }) => isActive ? 'active-link' : ''}
-                                        >My Enrolled Classes
+                                        > Enrolled Classes
                                         </NavLink>
                                         <NavLink
                                             to="/dashboard/payment-history"

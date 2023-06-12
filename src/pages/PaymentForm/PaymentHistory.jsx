@@ -3,6 +3,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import HistoryTableRow from "./HistoryTableRow";
+import BarLoader from "react-spinners/BarLoader";
 
 
 const PaymentHistory = () => {
@@ -44,7 +45,7 @@ const PaymentHistory = () => {
                 <tbody>
                     {
                         isLoading ? (
-                            <tr><td>Loading.....</td></tr>
+                            <tr><td><BarLoader color="#38ecd4" /></td></tr>
                         ) : (
                             <>
                                 {

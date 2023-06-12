@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import BarLoader from "react-spinners/BarLoader";
+
 
 const DashboardHome = () => {
     const { user, userLoading } = useContext(AuthContext);
@@ -19,7 +21,8 @@ const DashboardHome = () => {
         <div className="flex justify-center h-[60vh] items-center">
             {
                 isLoading ? (
-                    <p>loading...</p>
+                    <p><BarLoader color="#38ecd4" />
+                    </p>
                 ) : (
                     <div className="flex flex-col gap-5 text-center">
                         <p className="text-4xl">Hi, <span className="font-bold">{userName?.name}</span></p>

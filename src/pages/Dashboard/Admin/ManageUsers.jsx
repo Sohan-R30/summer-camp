@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import TableRow from "./TableRow";
+import BarLoader from "react-spinners/BarLoader";
 
 
 
@@ -36,7 +37,7 @@ const ManageUsers = () => {
                 <tbody>
                     {
                         isLoading ? (
-                            <tr><td>Loading.....</td></tr>
+                            <tr><td><BarLoader color="#38ecd4" /></td></tr>
                         ) : (
                             <>
                                 {

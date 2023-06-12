@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
 import useInstructor from "../hooks/useInstructor";
+import BarLoader from "react-spinners/BarLoader";
 
 
 const InstructorRoute = ({ children }) => {
@@ -10,7 +11,7 @@ const InstructorRoute = ({ children }) => {
     const location = useLocation();
 
     if (userLoading || isInstructorLoading) {
-        return <p>Loading.......</p>
+        return <p><BarLoader color="#38ecd4" /></p>
     }
     else if (user && isInstructor) {
         return children;
